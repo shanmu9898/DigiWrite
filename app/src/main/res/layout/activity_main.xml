@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mukesh.android.digiwritetesting2.MainActivity"
+    android:gravity="bottom">
+
+    <Button
+        android:id="@+id/scan_document_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Snap Document"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/scan_barcode_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Snap Barcode"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/open_gallery_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Open Gallery"
+        android:layout_margin="16dp"/>
+</LinearLayout>
