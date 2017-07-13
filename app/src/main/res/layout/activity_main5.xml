@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FF05458A"
     tools:context="com.mukesh.android.digiwritetesting2.Main5Activity">
 
 
@@ -11,41 +12,49 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="500dp"
+        android:layout_above="@+id/linearLayout"
         android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:gravity="top"
         android:text="Notext"
+        android:textColor="#ff000000"
         android:textSize="16sp" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="bottom"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_below="@+id/textView"
-    android:layout_centerHorizontal="true"
-    android:weightSum="3">
 
-    <Button
-        android:id="@+id/savebutton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="saveButton"
-        android:text="Save as PDF"
-        android:layout_weight="1"/>
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
-    <Button
-        android:id="@+id/Email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="emailPDF"
-        android:text="Email PDF"
-        android:layout_weight="1"/>
-    <Button
-        android:id="@+id/Translatebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Translate"
-        android:layout_weight="1"/>
-</LinearLayout>
+        <Button
+            android:id="@+id/savebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#DCFF7453"
+            android:onClick="save_doc"
+            android:text="Save" />
+
+        <Button
+            android:id="@+id/Share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ff000000"
+            android:onClick="share_doc"
+            android:text="Share" />
+
+        <Button
+            android:id="@+id/Translatebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#DCFF7453"
+            android:text="Translate" />
+    </LinearLayout>
 
 </RelativeLayout>

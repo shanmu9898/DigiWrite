@@ -2,7 +2,9 @@ package com.mukesh.android.digiwritetesting2;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Adapter;
@@ -29,9 +32,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
-
-
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 
 public class Main5Activity extends AppCompatActivity {
@@ -885,47 +887,158 @@ public class Main5Activity extends AppCompatActivity {
 
 
 
-    public void saveButton(View view) {
-        //reference to EditText
-        EditText et = (EditText) findViewById(R.id.textView);
-        //create document object
-        Document doc = new Document();
-        //output file path
-        String outpath = Environment.getExternalStorageDirectory() + "/mypdf.pdf";
-        try {
-            //create pdf writer instance
-            PdfWriter.getInstance(doc, new FileOutputStream(outpath));
-            //open the document for writing
-            doc.open();
-            //add paragraph to the document
-            doc.add(new Paragraph(et.getText().toString()));
-            //close the document
-            doc.close();
-            Toast.makeText(this, "PDF Created", Toast.LENGTH_SHORT).show();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public void save_doc(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Save As");
+        builder.setMessage("Enter name of document and choose export format");
+        final EditText namingdoc = new EditText(this);
+        builder.setView(namingdoc);
+
+        builder.setPositiveButton("Pdf File (.pdf)", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(namingdoc.getText().toString().isEmpty()){
+                    Toast.makeText(Main5Activity.this, "Enter the name of the document and try again", Toast.LENGTH_SHORT).show();
+                }else {
+                    String fileName = namingdoc.getText().toString() + ".pdf";
+                    String outpath = Environment.getExternalStorageDirectory() + "/" + fileName;
+                    PdfDocument document = new PdfDocument();
+                    View content = textView;
+                    int pageNumber = 1;
+                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(content.getWidth(), content.getHeight(), pageNumber).create();
+                    PdfDocument.Page page = document.startPage(pageInfo);
+                    content.draw(page.getCanvas());
+//                Canvas canvas = page.getCanvas();
+//                Paint paint = new Paint();
+//                canvas.drawText(et.getText().toString(),10, 10, paint);
+                    document.finishPage(page);
+
+                    try {
+                        document.writeTo(new FileOutputStream(outpath));
+                        document.close();
+
+                    } catch (IOException e) {
+                        Log.i("error", e.getLocalizedMessage());
+                    }
+                    Toast.makeText(Main5Activity.this, "Saved " + fileName, Toast.LENGTH_LONG).show();
+                }
+            }});
+
+
+        builder.setNeutralButton("Text File (.txt)", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(namingdoc.getText().toString().isEmpty()){
+                    Toast.makeText(Main5Activity.this, "Enter the name of the document and try again", Toast.LENGTH_SHORT).show();
+                }else {
+                    String fileName = namingdoc.getText().toString() + ".txt";
+                    String outpath = Environment.getExternalStorageDirectory() + "/" + fileName;
+                    try {
+                        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(outpath));
+                        out.write(textView.getText().toString());
+                        out.close();
+                        Toast.makeText(Main5Activity.this, "Saved " + fileName, Toast.LENGTH_LONG).show();
+                    } catch (Throwable t) {
+                        Toast.makeText(Main5Activity.this, "Exception: " + t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }});
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
-    public void emailPDF(View view){
-        String filename="mypdf.pdf";
-        File filelocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
-        Uri path = Uri.fromFile(filelocation);
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        // set the type to 'email'
-        emailIntent .setType("vnd.android.cursor.dir/email");
-        String to[] = {""};
-        emailIntent .putExtra(Intent.EXTRA_EMAIL, to);
-        // the attachment
-        emailIntent .putExtra(Intent.EXTRA_STREAM, path);
-        // the mail subject
-        emailIntent .putExtra(Intent.EXTRA_SUBJECT, "Subject");
-        startActivity(Intent.createChooser(emailIntent , "Send email..."));
+    public void share_doc(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Save As");
+        builder.setMessage("Enter name of document and choose export format");
+        final EditText namingdoc = new EditText(this);
+        builder.setView(namingdoc);
 
+        builder.setPositiveButton("Pdf File (.pdf)", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(namingdoc.getText().toString().isEmpty()){
+                    Toast.makeText(Main5Activity.this, "Enter the name of the document and try again", Toast.LENGTH_SHORT).show();
+                }else {
+                    String fileName = namingdoc.getText().toString() + ".pdf";
+                    String outpath = Environment.getExternalStorageDirectory() + "/" + fileName;
+                    PdfDocument document = new PdfDocument();
+                    View content = textView;
+                    int pageNumber = 1;
+                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(content.getWidth(), content.getHeight(), pageNumber).create();
+                    PdfDocument.Page page = document.startPage(pageInfo);
+                    content.draw(page.getCanvas());
+//                Canvas canvas = page.getCanvas();
+//                Paint paint = new Paint();
+//                canvas.drawText(et.getText().toString(),10, 10, paint);
+                    document.finishPage(page);
+
+                    try {
+                        document.writeTo(new FileOutputStream(outpath));
+                        document.close();
+
+                    } catch (IOException e) {
+                        Log.i("error", e.getLocalizedMessage());
+                    }
+
+                    //String filename="";
+                    File filelocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
+                    Uri path = Uri.fromFile(filelocation);
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    // set the type to 'email'
+                    shareIntent.setType("application/*");
+                    // the attachment
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, path);
+                    // the mail subject
+                    startActivity(Intent.createChooser(shareIntent, "Share Via"));
+                }
+
+            }});
+
+
+        builder.setNegativeButton("Text File (.txt)", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(namingdoc.getText().toString().isEmpty()){
+                    Toast.makeText(Main5Activity.this, "Enter the name of the document and try again", Toast.LENGTH_SHORT).show();
+                }else {
+                    String fileName = namingdoc.getText().toString() + ".txt";
+                    String outpath = Environment.getExternalStorageDirectory() + "/" + fileName;
+                    try {
+                        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(outpath));
+                        out.write(textView.getText().toString());
+                        out.close();
+                    } catch (Throwable t) {
+                        Toast.makeText(Main5Activity.this, "Exception: " + t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    //String filename="";
+                    File filelocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
+                    Uri path = Uri.fromFile(filelocation);
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    // set the type to 'email'
+                    shareIntent.setType("application/*");
+                    // the attachment
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, path);
+                    // the mail subject
+                    startActivity(Intent.createChooser(shareIntent, "Share Via"));
+                }
+
+            }});
+
+        builder.setNeutralButton("Text", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String Body = textView.getText().toString();
+                Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                shareIntent.setType("text/*");
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, Body);
+                startActivity(Intent.createChooser(shareIntent , "Send via..."));
+            }});
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 

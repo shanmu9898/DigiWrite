@@ -12,11 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="#FF05458A"
         app:srcCompat="@drawable/ic_image" />
+
     <Button
         android:id="@+id/ocrreadbutton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="OCR"/>
+        android:background="#DCFF7453"
+        android:text="OCR" />
 </LinearLayout>
