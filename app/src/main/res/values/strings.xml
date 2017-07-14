@@ -26,5 +26,7 @@
     <string name="document_error_format">Unrecognised format</string>
     <string name="camera_error_fatal">Camera Error</string>
     <string name="title_activity_google_translate">GoogleTranslateActivity</string>
+    <string name="edit_with_a_snap">\" Edit with a snap! \"</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
 </resources>

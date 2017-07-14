@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         scandocumentbutton = (ImageButton )findViewById(R.id.scan_document_button);
         opengallerybutton = (ImageButton )findViewById(R.id.open_gallery_button);
         if (Build.VERSION.SDK_INT >= 23) {
