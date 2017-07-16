@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF05458A"
+    android:background="#000000"
     tools:context="com.mukesh.android.digiwritetesting2.Main5Activity">
 
 
@@ -12,13 +12,15 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_above="@+id/linearLayout"
-        android:layout_weight="1"
+        android:layout_gravity="top"
         android:background="@android:color/transparent"
         android:gravity="top"
         android:text="Notext"
-        android:textColor="#ff000000"
-        android:textSize="16sp" />
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        android:textStyle="italic"
+        android:scrollbars="vertical" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -27,8 +29,9 @@
         android:gravity="bottom"
         android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
+        android:layout_gravity="bottom"
+        android:layout_marginTop="16dp"
+        >
 
         <Button
             android:id="@+id/savebutton"
@@ -37,16 +40,23 @@
             android:layout_weight="1"
             android:background="#DCFF7453"
             android:onClick="save_doc"
-            android:text="Save" />
+            android:text="Save"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
 
         <Button
             android:id="@+id/Share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#ff000000"
+            android:background="#ffff00"
             android:onClick="share_doc"
-            android:text="Share" />
+            android:text="Share"
+            android:textColor="#000000"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
 
         <Button
             android:id="@+id/Translatebutton"
@@ -54,7 +64,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#DCFF7453"
-            android:text="Translate" />
+            android:text="Translate"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
     </LinearLayout>
 
-</RelativeLayout>
+</FrameLayout>

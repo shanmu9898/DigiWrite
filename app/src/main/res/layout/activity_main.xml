@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF05458A"
-    android:gravity="bottom"
+    android:background="#000000"
     tools:context="com.mukesh.android.digiwritetesting2.MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
-        android:background="@android:color/transparent"
-        app:srcCompat="@mipmap/digiwrite_logo" />
-
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView5"
         android:layout_marginStart="8dp"
         android:layout_marginTop="45dp"
         android:fontFamily="cursive"
@@ -33,16 +23,34 @@
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="42sp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="76dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="cursive"
+        android:gravity="center_horizontal"
+        android:text="@string/edit_with_a_snap"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="27sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="74dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="76dp"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
 
         <ImageButton
             android:id="@+id/scan_document_button"
@@ -63,4 +71,4 @@
     </LinearLayout>
 
 
-</RelativeLayout>
+</FrameLayout>
