@@ -1,5 +1,8 @@
 package com.mukesh.android.digiwritetesting2;
 
+// This is the activity with editable text.
+
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -7,9 +10,11 @@ import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,6 +40,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Locale;
 
 
 public class Main5Activity extends AppCompatActivity {
@@ -41,6 +48,7 @@ public class Main5Activity extends AppCompatActivity {
     Button translatebutton;
     GoogleTranslate translator;
     ListView languages;
+    ImageButton read_button;
     String [] lang = {"Afrikaans",
             "Akan",
             "Albanian",
@@ -191,7 +199,8 @@ public class Main5Activity extends AppCompatActivity {
             "Zulu"
     };
     ArrayAdapter<String> adapter;
-    String dingding;
+    String dingding = "en";
+    TextToSpeech t1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,8 +208,37 @@ public class Main5Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main5);
         textView = (EditText) findViewById(R.id.textView);
         translatebutton = (Button) findViewById(R.id.Translatebutton);
-        String string = getIntent().getStringExtra("string");
+        read_button = (ImageButton) findViewById(R.id.text_to_speech_button);
+        final String string = getIntent().getStringExtra("string");
         textView.setText(string);
+
+        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.ENGLISH);
+                    t1.setPitch(0.8f);
+                    t1.setSpeechRate(1f);
+                }
+            }
+        });
+
+        read_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= 23) {
+                    if(dingding.equals("en") || dingding.equals("fr") || dingding.equals("de") || dingding.equals("ms")) {
+                        String reading_text = textView.getText().toString();
+                        t1.speak(reading_text, TextToSpeech.QUEUE_FLUSH, null, null);
+                    }else{
+                        Toast.makeText(Main5Activity.this, "ONLY ENGLISH OR LATIN LANGUAGES SUPPORTED", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+        });
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
@@ -881,8 +919,10 @@ public class Main5Activity extends AppCompatActivity {
 
 
 
-
-
+    public void onPause(){
+        t1.stop();
+        super.onPause();
+    }
 
 
 

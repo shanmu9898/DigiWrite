@@ -1,5 +1,7 @@
 package com.mukesh.android.digiwritetesting2;
 
+// This is the camera screen (used Anyline library ) . It gives document view to the screen. Passes the intent to MainActivity 4.
+
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -27,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.scanlibrary.PickImageFragment;
 import com.scanlibrary.ScanActivity;
 import com.scanlibrary.ScanConstants;
 
@@ -55,7 +58,7 @@ public class Main2Activity extends AppCompatActivity {
     private android.os.Handler handler = new android.os.Handler();
     private long lastErrorRecieved = 0;
     final int RequestCameraPermissionID = 1001;
-    final  int Requestcode = 99;
+    final  int Requestcode = 100;
 
 
 
@@ -223,11 +226,15 @@ public class Main2Activity extends AppCompatActivity {
                     transformedImage.save(outFile, 100);
                     //Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
                     String filedestination = outFile.getAbsolutePath();
-                    Intent intent = new Intent(Main2Activity.this, Main4Activity.class);
-                    intent.putExtra("Imageadress",filedestination);
-                    startActivity(intent);
+                    //Intent intent = new Intent(Main2Activity.this, Main4Activity.class);
+                    //intent.putExtra("Imageadress",filedestination);
+                    int preference = ScanConstants.OPEN_CAMERA;
+                    Intent intent = new Intent(Main2Activity.this, ScanActivity.class);
+                    intent.putExtra("uri", filedestination);
+                    intent.putExtra(ScanConstants.OPEN_INTENT_PREFERENCE, preference);
+                    startActivityForResult(intent,Requestcode);
 
-                    showToast(getString(R.string.document_image_saved_to) +" " + outFile.getAbsolutePath());
+                    //showToast(getString(R.string.document_image_saved_to) +" " + outFile.getAbsolutePath());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -235,6 +242,7 @@ public class Main2Activity extends AppCompatActivity {
                 // release the images
                 transformedImage.release();
                 fullFrame.release();
+
             }
         });
 
@@ -346,7 +354,7 @@ public class Main2Activity extends AppCompatActivity {
         documentScanView.cancelScanning();
         //release the camera (must be called in onPause, because there are situations where
         // it cannot be auto-detected that the camera should be released)
-        documentScanView.releaseCameraInBackground();
+        //documentScanView.releaseCameraInBackground();
     }
    /* @Override
     public void onCameraOpened(CameraController cameraController, int width, int height) {
@@ -361,5 +369,24 @@ public class Main2Activity extends AppCompatActivity {
         // This is useful to present an alternative way to enter the required data if no camera exists.
         throw new RuntimeException(e);
     }*/
+
+
+   @Override
+   protected void onActivityResult(int requestCode, int resultCode, Intent data){
+       super.onActivityResult(requestCode, resultCode, data);
+       //Toast.makeText(this, "This is has come till here", Toast.LENGTH_SHORT).show();
+
+
+       if (requestCode == Requestcode && resultCode == Activity.RESULT_OK) {
+           Uri uri = data.getExtras().getParcelable(ScanConstants.SCANNED_RESULT);
+           String stringuri = uri.toString();
+           Intent intents = new Intent(Main2Activity.this, Main4Activity.class);
+           intents.putExtra("Imageadress",stringuri);
+           startActivity(intents);
+
+
+       }
+
+   }
 
 }
