@@ -8,29 +8,41 @@
     tools:context="com.mukesh.android.digiwritetesting2.Main5Activity">
 
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    >
+    <ImageButton
+        android:id="@+id/text_to_speech_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
+
     <EditText
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_gravity="top"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="9"
         android:background="@android:color/transparent"
         android:gravity="top"
+        android:scrollbars="vertical"
         android:text="Notext"
         android:textColor="#ffffff"
         android:textSize="16sp"
-        android:layout_marginBottom="16dp"
-        android:textStyle="italic"
-        android:scrollbars="vertical" />
+        android:textStyle="italic" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
         android:orientation="horizontal"
-        android:weightSum="3"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="16dp"
+        android:weightSum="4"
+        android:layout_weight="1"
         >
 
         <Button
@@ -41,9 +53,8 @@
             android:background="#DCFF7453"
             android:onClick="save_doc"
             android:text="Save"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"/>
+            android:layout_margin="8dp"
+            />
 
         <Button
             android:id="@+id/Share"
@@ -54,9 +65,7 @@
             android:onClick="share_doc"
             android:text="Share"
             android:textColor="#000000"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"/>
+            android:layout_margin="8dp"/>
 
         <Button
             android:id="@+id/Translatebutton"
@@ -65,9 +74,17 @@
             android:layout_weight="1"
             android:background="#DCFF7453"
             android:text="Translate"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"/>
+            android:layout_margin="8dp"/>
+
+
     </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
+
 
 </FrameLayout>

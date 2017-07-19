@@ -1,5 +1,7 @@
 package com.mukesh.android.digiwritetesting2;
 
+// This is the activity for showing image obtained from the gallery using scan library.
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -45,6 +47,7 @@ import java.util.Locale;
 import static android.R.attr.bitmap;
 
 public class Main3Activity extends AppCompatActivity {
+
 
 
     ImageView imageView;

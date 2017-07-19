@@ -1,5 +1,7 @@
 package com.mukesh.android.digiwritetesting2;
 
+// This is the main activity which has the choose camera and choose from gallery code.
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -67,18 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 //      android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 //final int ACTIVITY_SELECT_IMAGE = 1234;
                 //startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
-                if (Build.VERSION.SDK_INT >= 23) {
-                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},3
-                        );
 
-                        // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                        // app-defined int constant
-
-
-                    }
-                }
 
                 int preference = ScanConstants.OPEN_MEDIA;
                 Intent intent = new Intent(MainActivity.this, ScanActivity.class);

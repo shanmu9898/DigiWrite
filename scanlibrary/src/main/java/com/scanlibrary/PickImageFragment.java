@@ -32,6 +32,7 @@ public class PickImageFragment extends Fragment {
     private ImageButton galleryButton;
     private Uri fileUri;
     private IScanner scanner;
+    private Bitmap bitmap2 = null;
 
     @Override
     public void onAttach(Activity activity) {
@@ -74,9 +75,11 @@ public class PickImageFragment extends Fragment {
     private void handleIntentPreference() {
         int preference = getIntentPreference();
         if (preference == ScanConstants.OPEN_CAMERA) {
-            openCamera();
+            setBitmapToThis();
         } else if (preference == ScanConstants.OPEN_MEDIA) {
             openMediaContent();
+        } else if( preference == ScanConstants.THIS_IS_TRAIL){
+            setBitmapToThis();
         }
     }
 
@@ -127,6 +130,12 @@ public class PickImageFragment extends Fragment {
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri);
         }
         startActivityForResult(cameraIntent, ScanConstants.START_CAMERA_REQUEST_CODE);
+    }
+
+    public void setBitmapToThis(){
+        String ting = getArguments().getString("kingkong");
+        bitmap2 = BitmapFactory.decodeFile(ting);
+        postImagePick(bitmap2);
     }
 
     private File createImageFile() {

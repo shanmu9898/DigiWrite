@@ -1,5 +1,7 @@
 package com.mukesh.android.digiwritetesting2;
 
+// This is the image got from camera.
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,8 +9,10 @@ import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -61,8 +65,15 @@ public class Main4Activity extends AppCompatActivity {
         ocrreadbutton = (Button) findViewById(R.id.ocrreadbutton);
 
         final String path = getIntent().getStringExtra("Imageadress");
-        ting = BitmapFactory.decodeFile(path);
-        imageView.setImageBitmap(ting);
+        Uri uri = Uri.parse(path);
+        try {
+            ting = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            getContentResolver().delete(uri, null, null);
+            imageView.setImageBitmap(ting);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //imageView.setImageBitmap(ting);
 
         ocrreadbutton.setOnClickListener(new View.OnClickListener() {
             @Override
