@@ -2,12 +2,10 @@ package com.mukesh.android.digiwritetesting2;
 
 // This is the activity with editable text.
 
-import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -17,10 +15,8 @@ import android.os.StrictMode;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.ContextThemeWrapper;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,16 +25,17 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Locale;
 
@@ -49,156 +46,159 @@ public class Main5Activity extends AppCompatActivity {
     GoogleTranslate translator;
     ListView languages;
     ImageButton read_button;
-    String [] lang = {"Afrikaans",
-            "Akan",
-            "Albanian",
-            "Amharic",
-            "Arabic",
-            "Armenian",
-            "Azerbaijani",
-            "Basque",
-            "Belarusian",
-            "Bemba",
-            "Bengali",
-            "Bihari",
-            "Bork, bork, bork!",
-            "Bosnian",
-            "Breton",
+    String [] lang = {
+//            "Afrikaans",
+//            "Akan",
+//            "Albanian",
+//            "Amharic",
+//            "Arabic",
+//            "Armenian",
+//            "Azerbaijani",
+//            "Basque",
+//            "Belarusian",
+//            "Bemba",
+//            "Bengali",
+//            "Bihari",
+//            "Bork, bork, bork!",
+//            "Bosnian",
+//            "Breton",
             "Bulgarian",
-            "Cambodian",
-            "Catalan",
-            "Cherokee",
-            "Chichewa",
+//            "Cambodian",
+//            "Catalan",
+//            "Cherokee",
+//            "Chichewa",
             "Chinese (Simplified)",
             "Chinese (Traditional)",
-            "Corsican",
-            "Croatian",
+//            "Corsican",
+//            "Croatian",
             "Czech",
             "Danish",
             "Dutch",
-            "Elmer Fudd",
-            "Esperanto",
+//            "Elmer Fudd",
+            "English",
+//            "Esperanto",
             "Estonian",
-            "Ewe",
-            "Faroese",
+//            "Ewe",
+//            "Faroese",
             "Filipino",
             "Finnish",
             "French",
-            "Frisian",
-            "Ga",
-            "Galician",
-            "Georgian",
+//            "Frisian",
+//            "Ga",
+//            "Galician",
+//            "Georgian",
             "German",
             "Greek",
-            "Guarani",
-            "Gujarati",
-            "Hacker",
-            "Haitian Creole",
-            "Hausa",
-            "Hawaiian",
-            "Hebrew",
+//            "Guarani",
+//            "Gujarati",
+//            "Hacker",
+//            "Haitian Creole",
+//            "Hausa",
+//            "Hawaiian",
+//            "Hebrew",
             "Hindi",
             "Hungarian",
-            "Icelandic",
-            "Igbo",
+//            "Icelandic",
+//            "Igbo",
             "Indonesian",
-            "Interlingua",
-            "Irish",
+//            "Interlingua",
+//            "Irish",
             "Italian",
             "Japanese",
             "Javanese",
-            "Kannada",
-            "Kazakh",
-            "Kinyarwanda",
-            "Kirundi",
-            "Klingon",
-            "Kongo",
+//            "Kannada",
+//            "Kazakh",
+//            "Kinyarwanda",
+//            "Kirundi",
+//            "Klingon",
+//            "Kongo",
             "Korean",
-            "Krio (Sierra Leone)",
-            "Kurdish",
-            "Kurdish (Soranî)",
-            "Kyrgyz",
-            "Laothian",
+//            "Krio (Sierra Leone)",
+//            "Kurdish",
+//            "Kurdish (Soranî)",
+//            "Kyrgyz",
+//            "Laothian",
             "Latin",
             "Latvian",
-            "Lingala",
+//            "Lingala",
             "Lithuanian",
-            "Lozi",
-            "Luganda",
-            "Luo",
-            "Macedonian",
-            "Malagasy",
+//            "Lozi",
+//            "Luganda",
+//            "Luo",
+//            "Macedonian",
+//            "Malagasy",
             "Malay",
-            "Malayalam",
+//            "Malayalam",
             "Maltese",
-            "Maori",
-            "Marathi",
-            "Mauritian Creole",
-            "Moldavian",
-            "Mongolian",
-            "Montenegrin",
-            "Nepali",
-            "Nigerian Pidgin",
-            "Northern Sotho",
-            "Norwegian",
-            "Norwegian (Nynorsk)",
-            "Occitan",
-            "Oriya",
-            "Oromo",
-            "Pashto",
-            "Persian",
-            "Pirate",
+//            "Maori",
+//            "Marathi",
+//            "Mauritian Creole",
+//            "Moldavian",
+//            "Mongolian",
+//            "Montenegrin",
+//            "Nepali",
+//            "Nigerian Pidgin",
+//            "Northern Sotho",
+//            "Norwegian",
+//            "Norwegian (Nynorsk)",
+//            "Occitan",
+//            "Oriya",
+//            "Oromo",
+//            "Pashto",
+//            "Persian",
+//            "Pirate",
             "Polish",
             "Portuguese (Brazil)",
             "Portuguese (Portugal)",
-            "Punjabi",
-            "Quechua",
+//            "Punjabi",
+//            "Quechua",
             "Romanian",
             "Romansh",
-            "Runyakitara",
+//            "Runyakitara",
             "Russian",
-            "Scots Gaelic",
-            "Serbian",
-            "Serbo-Croatian",
-            "Sesotho",
-            "Setswana",
-            "Seychellois Creole",
-            "Shona",
-            "Sindhi",
-            "Sinhalese",
+//            "Scots Gaelic",
+//            "Serbian",
+//            "Serbo-Croatian",
+//            "Sesotho",
+//            "Setswana",
+//            "Seychellois Creole",
+//            "Shona",
+//            "Sindhi",
+//            "Sinhalese",
             "Slovak",
             "Slovenian",
-            "Somali",
+//            "Somali",
             "Spanish",
             "Spanish (Latin American)",
-            "Sundanese",
-            "Swahili",
+//            "Sundanese",
+//            "Swahili",
             "Swedish",
-            "Tajik",
-            "Tamil",
-            "Tatar",
-            "Telugu",
-            "Thai",
-            "Tigrinya",
-            "Tonga",
-            "Tshiluba",
-            "Tumbuka",
+//            "Tajik",
+//            "Tamil",
+//            "Tatar",
+//            "Telugu",
+//            "Thai",
+//            "Tigrinya",
+//            "Tonga",
+//            "Tshiluba",
+//            "Tumbuka",
             "Turkish",
-            "Turkmen",
-            "Twi",
-            "Uighur",
-            "Ukrainian",
-            "Urdu",
-            "Uzbek",
+//            "Turkmen",
+//            "Twi",
+//            "Uighur",
+//            "Ukrainian",
+//            "Urdu",
+//            "Uzbek",
             "Vietnamese",
-            "Welsh",
-            "Wolof",
-            "Xhosa",
-            "Yiddish",
-            "Yoruba",
-            "Zulu"
+//            "Welsh",
+//            "Wolof",
+//            "Xhosa",
+//            "Yiddish",
+//            "Yoruba",
+//            "Zulu"
     };
     ArrayAdapter<String> adapter;
+    String start = "en";
     String dingding = "en";
     TextToSpeech t1;
 
@@ -211,6 +211,8 @@ public class Main5Activity extends AppCompatActivity {
         read_button = (ImageButton) findViewById(R.id.text_to_speech_button);
         final String string = getIntent().getStringExtra("string");
         textView.setText(string);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().hide();
 
         t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -247,9 +249,9 @@ public class Main5Activity extends AppCompatActivity {
         translatebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    final Dialog dialog = new Dialog(Main5Activity.this);
-                    dialog.setContentView(R.layout.custom);
-                    dialog.setTitle("Title...");
+                final Dialog dialog = new Dialog(Main5Activity.this);
+                dialog.setContentView(R.layout.custom);
+                dialog.setTitle("Choose Language");
 
                 languages = (ListView) dialog.findViewById(R.id.listView1);
                 adapter = new ArrayAdapter<String>(Main5Activity.this, android.R.layout.simple_list_item_1, lang);
@@ -370,6 +372,10 @@ public class Main5Activity extends AppCompatActivity {
                             dingding = "xx-elmer";
                             new EnglishToTagalog().execute();
                             dialog.dismiss();
+                        }else if (parent.getItemAtPosition(position).equals("English")) {
+                            dingding = "en";
+                            new EnglishToTagalog().execute();
+                            dialog.dismiss();
                         }else if (parent.getItemAtPosition(position).equals("Esperanto")){
                             dingding = "eo";
                             new EnglishToTagalog().execute();
@@ -384,6 +390,10 @@ public class Main5Activity extends AppCompatActivity {
                             dialog.dismiss();
                         }else if (parent.getItemAtPosition(position).equals("Faroese")){
                             dingding = "fo";
+                            new EnglishToTagalog().execute();
+                            dialog.dismiss();
+                        }else if (parent.getItemAtPosition(position).equals("Filipino")){
+                            dingding = "fil";
                             new EnglishToTagalog().execute();
                             dialog.dismiss();
                         }else if (parent.getItemAtPosition(position).equals("French")){
@@ -908,11 +918,10 @@ public class Main5Activity extends AppCompatActivity {
     }
 
     public void translated() {
-
         String translatetotagalog = textView.getText().toString();
-        String text = translator.translte(translatetotagalog, "en", dingding);
+        String text = translator.translte(translatetotagalog, start, dingding);
         textView.setText(text);
-
+        start = dingding;
     }
 
 
@@ -928,7 +937,8 @@ public class Main5Activity extends AppCompatActivity {
 
 
     public void save_doc(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.Theme_AppCompat_DayNight_DarkActionBar);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
         builder.setTitle("Save As");
         builder.setMessage("Enter name of document and choose export format");
         final EditText namingdoc = new EditText(this);
@@ -941,25 +951,30 @@ public class Main5Activity extends AppCompatActivity {
                     Toast.makeText(Main5Activity.this, "Enter the name of the document and try again", Toast.LENGTH_SHORT).show();
                 }else {
                     String fileName = namingdoc.getText().toString() + ".pdf";
-                    String outpath = Environment.getExternalStorageDirectory() + "/" + fileName;
-                    PdfDocument document = new PdfDocument();
-                    View content = textView;
-                    int pageNumber = 1;
-                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(content.getWidth(), content.getHeight(), pageNumber).create();
-                    PdfDocument.Page page = document.startPage(pageInfo);
-                    content.draw(page.getCanvas());
-//                Canvas canvas = page.getCanvas();
-//                Paint paint = new Paint();
-//                canvas.drawText(et.getText().toString(),10, 10, paint);
-                    document.finishPage(page);
-
+                    File outpath = new File(Environment.getExternalStorageDirectory(), fileName);
+                    Document document = new Document();
                     try {
-                        document.writeTo(new FileOutputStream(outpath));
-                        document.close();
-
-                    } catch (IOException e) {
-                        Log.i("error", e.getLocalizedMessage());
+                        PdfWriter.getInstance(document, new FileOutputStream(outpath));
+                    } catch (DocumentException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
                     }
+                    document.open();
+                    Font f = FontFactory.getFont("assets/fonts/DroidSansFallback.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                    Font g = FontFactory.getFont("assets/fonts/FreeSans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                    try {
+                        if(dingding == "bg"||dingding =="zh-CN"||dingding =="zh-TW"||dingding =="nl"||dingding =="en"||dingding == "fr"||dingding =="id"||dingding =="it"||dingding =="ja"||dingding == "ko"||dingding =="ms"||dingding =="ru"||
+                                dingding =="es"||dingding =="jw"||dingding =="fil"){
+                            document.add(new Paragraph(textView.getText().toString(), f));
+                        }else if (dingding == "de"||dingding =="pl"||dingding =="pt"||dingding =="tr"||dingding =="hi"||dingding == "cs"||dingding =="da"||dingding =="et"||dingding =="el"||dingding == "lv"||dingding =="lt"||dingding =="la"||
+                                dingding =="hu"||dingding =="mt"||dingding =="ro"||dingding =="sk"||dingding =="sl"||dingding =="fi"||dingding =="sv"||dingding =="vi"){
+                            document.add(new Paragraph(textView.getText().toString(), g));
+                        }
+                    } catch (DocumentException e) {
+                        e.printStackTrace();
+                    }
+                    document.close();
                     Toast.makeText(Main5Activity.this, "Saved " + fileName, Toast.LENGTH_LONG).show();
                 }
             }});
@@ -989,7 +1004,8 @@ public class Main5Activity extends AppCompatActivity {
     }
 
     public void share_doc(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.Theme_AppCompat_DayNight_DarkActionBar);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
         builder.setTitle("Save As");
         builder.setMessage("Enter name of document and choose export format");
         final EditText namingdoc = new EditText(this);
@@ -1002,34 +1018,42 @@ public class Main5Activity extends AppCompatActivity {
                     Toast.makeText(Main5Activity.this, "Enter the name of the document and try again", Toast.LENGTH_SHORT).show();
                 }else {
                     String fileName = namingdoc.getText().toString() + ".pdf";
-                    String outpath = Environment.getExternalStorageDirectory() + "/" + fileName;
-                    PdfDocument document = new PdfDocument();
-                    View content = textView;
-                    int pageNumber = 1;
-                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(content.getWidth(), content.getHeight(), pageNumber).create();
-                    PdfDocument.Page page = document.startPage(pageInfo);
-                    content.draw(page.getCanvas());
-//                Canvas canvas = page.getCanvas();
-//                Paint paint = new Paint();
-//                canvas.drawText(et.getText().toString(),10, 10, paint);
-                    document.finishPage(page);
-
+                    File outpath= new File(getExternalFilesDir(null), fileName);
+                    Uri uri = Uri.fromFile(outpath);
+                    Font f = FontFactory.getFont("assets/fonts/DroidSansFallback.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                    Font g = FontFactory.getFont("assets/fonts/FreeSans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                    Document document = new Document();
                     try {
-                        document.writeTo(new FileOutputStream(outpath));
-                        document.close();
-
-                    } catch (IOException e) {
-                        Log.i("error", e.getLocalizedMessage());
+                        if(dingding == "bg"||dingding =="zh-CN"||dingding =="zh-TW"||dingding =="nl"||dingding =="en"||dingding == "fr"||dingding =="id"||dingding =="it"||dingding =="ja"||dingding == "ko"||dingding =="ms"||dingding =="ru"||
+                                dingding =="es"||dingding =="jw"||dingding =="fil"){
+                            document.add(new Paragraph(textView.getText().toString(), f));
+                        }else if (dingding == "de"||dingding =="pl"||dingding =="pt"||dingding =="tr"||dingding =="hi"||dingding == "cs"||dingding =="da"||dingding =="et"||dingding =="el"||dingding == "lv"||dingding =="lt"||dingding =="la"||
+                                dingding =="hu"||dingding =="mt"||dingding =="ro"||dingding =="sk"||dingding =="sl"||dingding =="fi"||dingding =="sv"||dingding =="vi"){
+                            document.add(new Paragraph(textView.getText().toString(), g));
+                        }
+                    } catch (DocumentException e) {
+                        e.printStackTrace();
                     }
+                    try {
+                        PdfWriter.getInstance(document, new FileOutputStream(outpath));
+                    } catch (DocumentException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    document.open();
+                    try {
+                        document.add(new Paragraph(textView.getText().toString(),f));
 
-                    //String filename="";
-                    File filelocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
-                    Uri path = Uri.fromFile(filelocation);
+                        document.close();
+                    } catch (DocumentException e) {
+                        e.printStackTrace();
+                    }
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     // set the type to 'email'
                     shareIntent.setType("application/*");
                     // the attachment
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, path);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
                     // the mail subject
                     startActivity(Intent.createChooser(shareIntent, "Share Via"));
                 }
@@ -1044,7 +1068,8 @@ public class Main5Activity extends AppCompatActivity {
                     Toast.makeText(Main5Activity.this, "Enter the name of the document and try again", Toast.LENGTH_SHORT).show();
                 }else {
                     String fileName = namingdoc.getText().toString() + ".txt";
-                    String outpath = Environment.getExternalStorageDirectory() + "/" + fileName;
+                    File outpath= new File(getExternalFilesDir(null), fileName);
+                    Uri uri = Uri.fromFile(outpath);
                     try {
                         OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(outpath));
                         out.write(textView.getText().toString());
@@ -1052,15 +1077,11 @@ public class Main5Activity extends AppCompatActivity {
                     } catch (Throwable t) {
                         Toast.makeText(Main5Activity.this, "Exception: " + t.toString(), Toast.LENGTH_SHORT).show();
                     }
-
-                    //String filename="";
-                    File filelocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
-                    Uri path = Uri.fromFile(filelocation);
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     // set the type to 'email'
                     shareIntent.setType("application/*");
                     // the attachment
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, path);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
                     // the mail subject
                     startActivity(Intent.createChooser(shareIntent, "Share Via"));
                 }
