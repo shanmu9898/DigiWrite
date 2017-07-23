@@ -10,15 +10,14 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,7 +28,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.scanlibrary.PickImageFragment;
 import com.scanlibrary.ScanActivity;
 import com.scanlibrary.ScanConstants;
 
@@ -37,7 +35,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import at.nineyards.anyline.camera.CameraController;
 import at.nineyards.anyline.models.AnylineImage;
 import at.nineyards.anyline.modules.document.DocumentResult;
 import at.nineyards.anyline.modules.document.DocumentResultListener;
@@ -106,6 +103,8 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         String licenseKey = getString(R.string.anyline_license_key);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().hide();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         documentScanView = (DocumentScanView) findViewById(R.id.document_scan_view);
@@ -371,22 +370,22 @@ public class Main2Activity extends AppCompatActivity {
     }*/
 
 
-   @Override
-   protected void onActivityResult(int requestCode, int resultCode, Intent data){
-       super.onActivityResult(requestCode, resultCode, data);
-       //Toast.makeText(this, "This is has come till here", Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        //Toast.makeText(this, "This is has come till here", Toast.LENGTH_SHORT).show();
 
 
-       if (requestCode == Requestcode && resultCode == Activity.RESULT_OK) {
-           Uri uri = data.getExtras().getParcelable(ScanConstants.SCANNED_RESULT);
-           String stringuri = uri.toString();
-           Intent intents = new Intent(Main2Activity.this, Main4Activity.class);
-           intents.putExtra("Imageadress",stringuri);
-           startActivity(intents);
+        if (requestCode == Requestcode && resultCode == Activity.RESULT_OK) {
+            Uri uri = data.getExtras().getParcelable(ScanConstants.SCANNED_RESULT);
+            String stringuri = uri.toString();
+            Intent intents = new Intent(Main2Activity.this, Main4Activity.class);
+            intents.putExtra("Imageadress",stringuri);
+            startActivity(intents);
 
 
-       }
+        }
 
-   }
+    }
 
 }

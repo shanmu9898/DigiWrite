@@ -6,38 +6,37 @@
     android:layout_height="match_parent"
     android:background="#000000"
     tools:context="com.mukesh.android.digiwritetesting2.MainActivity">
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/textView2"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="45dp"
-        android:fontFamily="cursive"
-        android:gravity="center_horizontal"
-        android:text="DigiWrite"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="42sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
-        android:layout_marginStart="8dp"
-        android:fontFamily="cursive"
-        android:gravity="center_horizontal"
-        android:text="@string/edit_with_a_snap"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="27sp"
-        android:textStyle="bold" />
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="45dp"
+            android:fontFamily="cursive"
+            android:gravity="center_horizontal"
+            android:text="DigiWrite"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="42sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="76dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="cursive"
+            android:gravity="center_horizontal"
+            android:text="@string/edit_with_a_snap"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="27sp"
+            android:textStyle="bold" />
 
-</LinearLayout>
+    </LinearLayout>
 
 
     <LinearLayout

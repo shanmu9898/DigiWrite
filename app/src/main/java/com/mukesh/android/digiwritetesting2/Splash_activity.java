@@ -18,6 +18,8 @@ public class Splash_activity extends AppCompatActivity {
         imageView = (ImageView)findViewById(R.id.imageView);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.welcome_animation);
         imageView.setAnimation(animation);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().hide();
 
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -27,7 +29,7 @@ public class Splash_activity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                 finish();
+                finish();
                 Intent i = new Intent(Splash_activity.this,
                         MainActivity.class);
                 startActivity(i);

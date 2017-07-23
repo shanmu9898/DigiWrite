@@ -4,25 +4,17 @@ package com.mukesh.android.digiwritetesting2;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
-import android.util.SparseLongArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.text.Line;
-import com.google.android.gms.vision.text.TextBlock;
-import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpTransport;
@@ -44,8 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static android.R.attr.bitmap;
-
 public class Main3Activity extends AppCompatActivity {
 
 
@@ -65,6 +55,8 @@ public class Main3Activity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.image_View_final_cropping);
         ocrbutton = (Button)(findViewById(R.id.OCRreadbuttongallery));
         final String path2 = getIntent().getStringExtra("Imagefilepath");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().hide();
         Uri uri = Uri.parse(path2);
         try {
             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
